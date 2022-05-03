@@ -1,0 +1,42 @@
+body
+{
+    background-image:linear-gradient(to right bottom, slateblue, rgb(199, 57, 140));
+}
+.heading
+{
+    font-size:35px;
+    width:30%;
+    margin:10px;
+    color:rgb(22, 224, 140);
+}
+.theButtons
+{
+    background-color: slategray;
+    color: skyblue;
+    width:15%;
+    font-size:20px;
+    margin:15px;
+    box-shadow: 5px 5px 5px rgb(74, 81, 88);
+}
+#RecognizedObjects
+{
+    font-size:20px;
+    display: none;
+}
+.backBtn
+{
+    background-color: aqua;
+    color:rebeccapurple;
+    font-size:20px;
+    font-weight: bold;
+    float:right;
+    width:65px;
+    height: 35px;
+}
+.heading2
+{
+    font-size:35px;
+    width:100%;
+    margin:10px;
+    color:rgb(22, 224, 140);
+}
