@@ -5,6 +5,7 @@ function backToHome5(){
 }
 img="";
 stat="";
+objects=[];
 
 function preload(){
 
@@ -41,6 +42,7 @@ function gotResults(error,results){
     else{
 
         console.log(results);
+        objects=results;
 
     }
 
@@ -49,11 +51,21 @@ function gotResults(error,results){
 function draw(){
 
     image(img,0,0,600,450);
-    fill("#008080");
-    stroke("#008080");
-    text("TV",142,130);
-    noFill();
-    rect(142,135,315,183);
+    document.getElementById("statusTV").innerHTML="Object(s) dectected successfully";
+    if(stat != ""){
+
+        for(i=0; i<objects.length; i++){
+
+            fill("#00ffff");
+            stroke("#00ffff");
+            percent=floor(objects[i].confidence*100);
+            text(objects[i].label+" "+percent+"%",objects[i].x+15,objects[i].y+15);
+            noFill();
+            rect(objects[i].y,objects[i].x,objects[i].width,objects[i].height);
+
+        }
+
+    }
 
     document.getElementById("RecognizedObjectsTV").innerHTML="COCOSSD has detected 1 TV";
 }

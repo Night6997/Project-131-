@@ -5,6 +5,7 @@ function backToHome4(){
 }
 img="";
 stat="";
+objects=[];
 
 function preload(){
 
@@ -41,7 +42,7 @@ function gotResults(error,results){
     else{
 
         console.log(results);
-
+        objects=results;
     }
 
 }
@@ -49,29 +50,21 @@ function gotResults(error,results){
 function draw(){
 
     image(img,0,0,600,450);
-    fill("#181954");
-    stroke("#181954");
-    text("Book",37,30);
-    noFill();
-    rect(68,20,493,175);
+    document.getElementById("statusBooks").innerHTML="Object(s) dectected successfully";
+    if(stat != ""){
 
-    fill("#ff00d5");
-    stroke("#ff00d5");
-    text("Book",37,147);
-    noFill();
-    rect(68,137,493,145);
+        for(i=0; i<objects.length; i++){
+            
+            fill("#00ffff");
+            stroke("#00ffff");
+            percent=floor(objects[i].confidence*100);
+            text(objects[i].label+" "+percent+"%",objects[i].x+15,objects[i].y+15);
+            noFill();
+            rect(objects[i].x,objects[i].y,objects[i].height,objects[i].width);
 
-    fill("#00ff8c");
-    stroke("#00ff8c");
-    text("Book",14,215);
-    noFill();
-    rect(45,205,483,163);
+        }
 
-    fill("#fbff00");
-    stroke("#fbff00");
-    text("Book",32,292);
-    noFill();
-    rect(63,282,488,152);
+    }
 
-    document.getElementById("RecognizedObjectsBooks").innerHTML="COCOSSD has detected 4 books";
+    document.getElementById("RecognizedObjectsBooks").innerHTML="There are 4 objects and COCOSSD has detected 2";
 }

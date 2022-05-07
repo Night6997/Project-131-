@@ -5,6 +5,7 @@ function backToHome2(){
 }
 img="";
 stat="";
+objects=[];
 
 function preload(){
 
@@ -41,6 +42,7 @@ function gotResults(error,results){
     else{
 
         console.log(results);
+        objects=results;
 
     }
 
@@ -49,11 +51,21 @@ function gotResults(error,results){
 function draw(){
 
     image(img,0,0,600,450);
-    fill("#d11736");
-    stroke("#d11736");
-    text("Clock",103,71);
-    noFill();
-    rect(103,76,396,298);
+    document.getElementById("statusClock").innerHTML="Object(s) dectected successfully";
+    if(stat != ""){
+
+        for(i=0; i<objects.length; i++){
+
+            fill("#00ffff");
+            stroke("#00ffff");
+            percent=floor(objects[i].confidence*100);
+            text(objects[i].label+" "+percent+"%",objects[i].x+15,objects[i].y+15);
+            noFill();
+            rect(objects[i].x,objects[i].y,objects[i].height,objects[i].width);
+
+        }
+
+    }
 
     document.getElementById("RecognizedObjectsClock").innerHTML="COCOSSD has detected 1 clock";
 }

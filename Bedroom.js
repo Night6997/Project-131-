@@ -5,6 +5,8 @@ function backToHome1(){
 }
 img="";
 stat="";
+objects=[];
+detection="";
 
 function preload(){
 
@@ -41,6 +43,7 @@ function gotResults(error,results){
     else{
 
         console.log(results);
+        objects=results;
 
     }
 
@@ -49,41 +52,21 @@ function gotResults(error,results){
 function draw(){
 
     image(img,0,0,600,450);
-    fill("#00ffff");
-    stroke("#00ffff");
-    text("Bed",120,160);
-    noFill();
-    rect(120,165,360,285);
+    document.getElementById("statusBedroom").innerHTML="Object(s) dectected successfully";
+    if(stat != ""){
 
-    fill("#ff69b4");
-    stroke("#ff69b4");
-    text("Lamp",120,200);
-    noFill();
-    rect(120,225,35,85);
-    
-    fill("#ff69b4");
-    stroke("#ff69b4");
-    text("Lamp",445,220);
-    noFill();
-    rect(445,225,35,85);
+        for(i=0; i<objects.length; i++){
 
-    fill("#dc143c");
-    stroke("#dc143c");
-    text("Light",350,10);
-    noFill();
-    rect(380,1,110,62);
+            fill("#00ffff");
+            stroke("#00ffff");
+            percent=floor(objects[i].confidence*100);
+            text(objects[i].label+" "+percent+"%",objects[i].x+15,objects[i].y+15);
+            noFill();
+            rect(objects[i].x,objects[i].y,objects[i].height,objects[i].width);
 
-    fill("#dc143c");
-    stroke("#dc143c");
-    text("Light",297,50);
-    noFill();
-    rect(213,1,110,35);
+        }
 
-    fill("#dc143c");
-    stroke("#dc143c");
-    text("Light",68,10);
-    noFill();
-    rect(98,1,110,62);
+    }
 
-    document.getElementById("RecognizedObjectsBedroom").innerHTML="COCOSSD has detected 1 bed, 2 lamps and 3 lights";
+    document.getElementById("RecognizedObjectsBedroom").innerHTML="There are 6 objects and COCOSSD has detected 1 object";
 }

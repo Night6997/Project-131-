@@ -5,6 +5,7 @@ function backToHome3(){
 }
 img="";
 stat="";
+objects=[];
 
 function preload(){
 
@@ -41,6 +42,7 @@ function gotResults(error,results){
     else{
 
         console.log(results);
+        objects=results;
 
     }
 
@@ -49,23 +51,21 @@ function gotResults(error,results){
 function draw(){
 
     image(img,0,0,600,450);
-    fill("#f59211");
-    stroke("#f59211");
-    text("Bottle",58,48);
-    noFill();
-    rect(58,53,155,302);
+    document.getElementById("statusBottles").innerHTML="Object(s) dectected successfully";
+    if(stat != ""){
 
-    fill("#f5cf11");
-    stroke("#f5cf11");
-    text("Bottle",220,48);
-    noFill();
-    rect(220,53,160,302);
+        for(i=0; i<objects.length; i++){
 
-    fill("#3ff511");
-    stroke("#3ff511");
-    text("Bottle",373,48);
-    noFill();
-    rect(373,53,147,302);
+            fill("#00ffff");
+            stroke("#00ffff");
+            percent=floor(objects[i].confidence*100);
+            text(objects[i].label+" "+percent+"%",objects[i].x+15,objects[i].y+15);
+            noFill();
+            rect(objects[i].x,objects[i].y,objects[i].width,objects[i].height);
+
+        }
+
+    }
 
     document.getElementById("RecognizedObjectsBottles").innerHTML="COCOSSD has detected 3 bottles";
 }
